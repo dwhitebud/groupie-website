@@ -11,9 +11,13 @@ const Header = ({ siteTitle }) => {
         <div className="flex justify-between items-center py-4">
           <Link
             to="/"
-            className="font-bold text-2xl text-primary flex items-center"
+            className="font-bold text-2xl flex items-center"
           >
-            {siteTitle}
+            <img
+              src="/groupie-log.png"
+              alt="Groupie Logo"
+              style={{ width: 'auto', height: '60px', maxWidth: '280px' }}
+            />
           </Link>
 
           {/* Mobile menu button */}

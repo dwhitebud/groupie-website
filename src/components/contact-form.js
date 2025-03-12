@@ -1,4 +1,8 @@
 import * as React from "react"
+import emailjs from '@emailjs/browser';
+
+// Initialize EmailJS directly
+emailjs.init("nDu7qDG5Tw671jILd");
 
 const ContactForm = () => {
   const [formState, setFormState] = React.useState({
@@ -11,6 +15,8 @@ const ContactForm = () => {
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [error, setError] = React.useState(null);
+  const formRef = React.useRef();
 
   const handleChange = (e) => {
     setFormState({
@@ -19,12 +25,34 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Prepare template parameters
+      const templateParams = {
+        to_email: 'hello@devandbre.com',
+        from_name: formState.name,
+        from_email: formState.email,
+        instagram: formState.instagram || 'Not provided',
+        destination: formState.destination || 'Not specified',
+        message: formState.message || 'No additional message'
+      };
+
+      console.log('Sending email with parameters:', templateParams);
+      
+      // Send the email directly from the client with hardcoded service and template IDs
+      const response = await emailjs.send(
+        "service_wua4b8j",
+        "template_s9wkvmo",
+        templateParams
+      );
+      
+      console.log('EmailJS response:', response);
+      
+      // Success! Reset form and show success message
       setIsSubmitting(false);
       setIsSubmitted(true);
       setFormState({
@@ -34,7 +62,11 @@ const ContactForm = () => {
         destination: "",
         message: ""
       });
-    }, 1500);
+    } catch (err) {
+      console.error('Error sending email:', err);
+      setIsSubmitting(false);
+      setError(`There was an error sending your message: ${err.message || 'Unknown error'}`);
+    }
   };
 
   return (
@@ -75,9 +107,15 @@ const ContactForm = () => {
             </div>
           ) : (
             <form 
+              ref={formRef}
               onSubmit={handleSubmit} 
               className="bg-light p-8 rounded-lg shadow-md"
             >
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg mb-6">
+                  <p>{error}</p>
+                </div>
+              )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label 

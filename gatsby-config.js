@@ -45,7 +45,7 @@ module.exports = {
         background_color: `#4F46E5`,
         theme_color: `#4F46E5`,
         display: `minimal-ui`,
-        icon: `src/images/example.png`, // Using the existing example.png file as the icon
+        icon: `static/groupie-log.png`, // Using the Groupie logo from the static directory
       },
     },
   ],
