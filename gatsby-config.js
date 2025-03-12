@@ -9,13 +9,24 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
-    siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
+    title: `Groupie - Host Your Own Dream Trip`,
+    description: `Turn your dream trip into reality and get paid for it! Travel with your followers, create unforgettable memories, and earn money with zero risk.`,
+    author: `Breanna White`,
+    siteUrl: `https://groupie.travel/`,
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-robots-txt`,
+      options: {
+        host: `https://groupie.travel`,
+        sitemap: `https://groupie.travel/sitemap.xml`,
+        policy: [{ userAgent: '*', allow: '/' }]
+      }
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -28,15 +39,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Groupie - Host Your Own Dream Trip`,
+        short_name: `Groupie`,
         start_url: `/`,
-        background_color: `#663399`,
-        // This will impact how browsers show your PWA/website
-        // https://css-tricks.com/meta-theme-color-and-trickery/
-        // theme_color: `#663399`,
+        background_color: `#4F46E5`,
+        theme_color: `#4F46E5`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+        icon: `src/images/example.png`, // Using the existing example.png file as the icon
       },
     },
   ],
